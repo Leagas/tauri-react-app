@@ -1,4 +1,5 @@
-// import { invoke } from "@tauri-apps/api/tauri";
+import { useEffect } from "react";
+import { invoke } from "@tauri-apps/api/tauri";
 import {
   Outlet,
   RouterProvider,
@@ -11,8 +12,8 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Orders from './dashboard/Orders';
-import "./App.css";
 import { Typography } from '@mui/material';
+import "./App.css";
 
 const rootRoute = new RootRoute({
   component: () => (
@@ -129,11 +130,6 @@ declare module '@tanstack/react-router' {
 }
 
 function App() {
-  // async function greet() {
-  // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-  // setGreetMsg(await invoke("greet", { name }));
-  // }
-
   return (
     <div className="container">
       <RouterProvider router={router} />
