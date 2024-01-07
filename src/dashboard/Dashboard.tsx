@@ -13,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { MainList } from './MainList';
 import { navigationAtom } from "../store";
+import { invoke } from "@tauri-apps/api/tauri";
 
 const drawerWidth: number = 240;
 
@@ -57,6 +58,13 @@ const Dashboard = (props) => {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  React.useEffect(() => {
+    setTimeout(async () => {
+      const result = await invoke("list")
+      console.log(result)
+    }, 1000)
+  }, [])
 
   return (
     <ThemeProvider theme={defaultTheme}>
