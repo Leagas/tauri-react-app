@@ -3,12 +3,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Client {
     pub name: String,
-    pub id: u32
+    pub credentials: Credentials
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Credentials {
+    region: String,
+    access_key_id: String,
+    secret_access_key: String
 }
 
 impl Client {
-    // Constructor to create a new client
-    pub fn new(name: String, id: u32) -> Self {
-        Client { name, id }
+    pub fn new(name: String, credentials: Credentials) -> Self {
+        Client { name, credentials }
     }
 }

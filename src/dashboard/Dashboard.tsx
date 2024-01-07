@@ -55,17 +55,23 @@ const defaultTheme = createTheme();
 const Dashboard = (props) => {
   const navigation = useRecoilValue(navigationAtom);
   const [open, setOpen] = React.useState(true);
+  const [list, setList] = React.useState<any>([]);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  React.useEffect(() => {
-    setTimeout(async () => {
-      const result = await invoke("list")
-      console.log(result)
-    }, 1000)
-  }, [])
+  const handleList = async () => {
+    const result: any = await invoke("list")
+    if (result) {
+      const json = JSON.parse(result)
+      setList(JSON.parse(json))
+    }
+  }
 
+  React.useEffect(() => {
+    handleList()
+  }, [])
+  
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box style={{ height: '100%' }} sx={{ display: 'flex' }}>
@@ -102,6 +108,7 @@ const Dashboard = (props) => {
         {open && <Drawer variant="permanent" open={open}>
           <List component="nav">
             <MainList />
+            {list?.length && <p>{list[0].name}</p>}
           </List>
         </Drawer>}
         <Box
@@ -117,7 +124,6 @@ const Dashboard = (props) => {
           }}
         >
           {props.children}
-
         </Box>
       </Box>
     </ThemeProvider>
